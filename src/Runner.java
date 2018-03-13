@@ -24,7 +24,7 @@ public class Runner {
             System.out.println("How much would you like to bet on this round? You have $"
                     + Double.toString(bettingMoney) + "0 available.");
             if(debt>0){
-                System.out.println("You owe the house $"+ Double.toString(debt));
+                System.out.println("You owe the house $"+ Double.toString(debt) + "0.");
             }
             roundBet = 0;
 
@@ -109,7 +109,7 @@ public class Runner {
                 if(croupier.valueOfHand()!=21){
                     System.out.println("You were dealt a natural blackjack! You win.");
                     roundBet = 1.5*roundBet;
-                    System.out.println("The dealer pays you 1.5 times your bet, or $" + Double.toString(roundBet) + ".");
+                    System.out.println("The dealer pays you 1.5 times your bet, or $" + Double.toString(roundBet) + "0.");
                     if(debt>0){
                         if(debt-roundBet<0){
                             debt = 0;
@@ -182,7 +182,7 @@ public class Runner {
                 }else if(userInput.equals("u")){
                     System.out.println("You choose to surrender. The round ends.");
                     roundBet = 0.5*roundBet;
-                    System.out.println("The dealer returns half your bet, or $" + Double.toString(roundBet) + ".");
+                    System.out.println("The dealer returns half your bet, or $" + Double.toString(roundBet) + "0.");
                     //The bet is never subtracted from your betting money at the start, so you need to subtract half now.
                     if(roundBet>bettingMoney){
                         bettingMoney = 0;
@@ -220,7 +220,7 @@ public class Runner {
                     System.out.println("Your hand is higher than the dealer's hand. You win this round.");
                 }
                 if(roundBet>0){
-                    System.out.println("The dealer pays you $" + Double.toString(roundBet) + ".");
+                    System.out.println("The dealer pays you $" + Double.toString(roundBet) + "0.");
                     if(debt>0){
                         if(debt-roundBet<0){
                             debt = 0;
