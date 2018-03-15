@@ -1,13 +1,14 @@
 import java.util.Random;
 
 public class Deck {
-    Card[] allCards = new Card[52];
+    Card[] allCards;
     public Deck(int numDecks){
+        allCards = new Card[52*numDecks];
         //most casinos use 6 or 8 decks at one time: most basic games use just two
         for(int decks = 0; decks<numDecks; decks++){
             for(int n = 0; n<4; n++){
                 for(int val = 2; val<15; val++){
-                    this.allCards[(13*n) + val-2] = new Card(n, val);
+                    this.allCards[(52*decks) + (13*n) + val-2] = new Card(n, val);
                 }
             }
         }

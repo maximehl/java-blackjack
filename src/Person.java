@@ -5,10 +5,9 @@ public class Person {
         int handValue = 0;
         int numAces = 0;
         for(int n = 0; n<hand.length; n++){
+            handValue = handValue + hand[n].value;
             if(hand[n].value==11){
                 numAces++;
-            }else{
-                handValue = handValue + hand[n].value;
             }
         }
         while(handValue>21&&numAces>0){
