@@ -6,7 +6,7 @@ public class Runner {
         int playingGame = 1;
         double bettingMoney = 1000.00;
         double debt = 0;
-        double roundBet;
+        double roundBet = 0;
         boolean takingLoan = false;
         boolean error;
         int handValue;
@@ -22,14 +22,12 @@ public class Runner {
         while(playingGame>0){
             System.out.println("New round!");
             //determine bet
-            System.out.println("How much would you like to bet on this round? You have $"
-                    + Double.toString(bettingMoney) + "0 available.");
-            if(debt>0){
-                System.out.println("You owe the house $"+ Double.toString(debt) + "0.");
-            }
-            roundBet = 0;
-            //above line rounds the bet value the user inputs to one decimal
-            while(!((roundBet>0&&((roundBet<=bettingMoney&&bettingMoney>0)||(bettingMoney==0)))||takingLoan)){
+            while(!(roundBet>0&&(((roundBet<=bettingMoney&&bettingMoney>0)||(bettingMoney==0))||takingLoan))){
+                System.out.println("How much would you like to bet on this round? You have $"
+                        + Double.toString(bettingMoney) + "0 available.");
+                if(debt>0){
+                    System.out.println("You owe the house $"+ Double.toString(debt) + "0.");
+                }
                 //make sure there's a Double next
                 error = true;
                 while(error){
@@ -43,8 +41,11 @@ public class Runner {
                 roundBet = scan.nextDouble();
                 roundBet = Math.round(roundBet);
                 //roundBet = Math.round(roundBet*10.0)/10.0;
+                //above line rounds the bet value the user inputs to one decimal
 
-                if(roundBet>bettingMoney){
+                if(roundBet<=0){
+                    System.out.println("You must bet more than 0 dollars.");
+                }else if(roundBet>bettingMoney){
                     System.out.println("You would like to bet $" + Double.toString(roundBet)
                             + "0 and you currently have $" + Double.toString(bettingMoney)
                             + "0. Confirm that you would like to borrow the difference from the house. " +
@@ -61,15 +62,12 @@ public class Runner {
                         }
                     }
                     takingLoan = scan.nextBoolean();
-                    if(takingLoan){
-                        debt+=(roundBet-bettingMoney);
+                    if(!takingLoan){
+                        roundBet = 0;
                     }
                 }
-                if(roundBet<=0){
-                    System.out.println("You must bet more than 0 dollars. Please enter a number.");
-                }
             }
-            System.out.println("You are bidding $" + Double.toString(roundBet) + "0 on this round.");
+            System.out.println("You are betting $" + Double.toString(roundBet) + "0 on this round.");
 
             //determine number of decks
             System.out.println("How many decks would you like to use? (Enter an integer from 1-8)");
@@ -117,11 +115,11 @@ public class Runner {
                     }else{
                         bettingMoney+=roundBet;
                     }
-                    roundBet = 0;
                 }else if(you.valueOfHand()!=21){
                     System.out.println("The dealer was dealt a natural blackjack! You lose this round.");
                     System.out.println("The dealer collects your bet.");
                     if(roundBet>bettingMoney){
+                        debt+=(roundBet-bettingMoney);
                         bettingMoney = 0;
                     }else{
                         bettingMoney-=roundBet;
@@ -130,6 +128,7 @@ public class Runner {
                     System.out.println("Both you and the dealer were dealt a natural blackjack! This round is a standoff.");
                     System.out.println("The dealer returns your bet.");
                 }
+                roundBet = 0;
                 playingGame = 1;
             }
 
@@ -162,6 +161,7 @@ public class Runner {
                         System.out.println("Your hand value has exceeded 21! Bust. You lose this round.");
                         System.out.println("The dealer collects your bet.");
                         if(roundBet>bettingMoney){
+                            debt+=(roundBet-bettingMoney);
                             bettingMoney = 0;
                         }else{
                             bettingMoney-=roundBet;
@@ -183,6 +183,7 @@ public class Runner {
                     System.out.println("The dealer returns half your bet, or $" + Double.toString(roundBet) + "0.");
                     //The bet is never subtracted from your betting money at the start, so you need to subtract half now.
                     if(roundBet>bettingMoney){
+                        debt+=(roundBet-bettingMoney);
                         bettingMoney = 0;
                     }else{
                         bettingMoney-=roundBet;
@@ -217,6 +218,7 @@ public class Runner {
                     System.out.println("The dealer's hand is higher than your hand. You lose this round.");
                     System.out.println("The dealer collects your bet.");
                     if(roundBet>bettingMoney){
+                        debt+=(roundBet-bettingMoney);
                         bettingMoney = 0;
                     }else{
                         bettingMoney-=roundBet;
@@ -242,7 +244,7 @@ public class Runner {
                     }
                 }
             }
-
+            roundBet = 0;
             System.out.println("The round is complete. Would you like to play another round? (Enter 'true' or 'false'.)");
             error = true;
             while(error){
