@@ -107,8 +107,8 @@ public class Runner {
                     System.out.println("The dealer pays you 1.5 times your bet, or $" + Double.toString(roundBet) + "0.");
                     if(debt>0){
                         if(debt-roundBet<0){
-                            debt = 0;
                             bettingMoney+=roundBet-debt;
+                            debt = 0;
                         }else{
                             debt-=roundBet;
                         }
@@ -139,7 +139,7 @@ public class Runner {
             String userInput;
             while(playingGame>1){
                 System.out.println("What would you like to do? Hit [H], Stand [S], Surrender [U], Check your hand [C]," +
-                        "or View the dealer's card [V]. (Enter one letter)");
+                        " or View the dealer's card [V]. (Enter one letter)");
                 userInput = "";
                 while(!(userInput.equals("h")||userInput.equals("s")||userInput.equals("u")
                         ||userInput.equals("v")||userInput.equals("c"))){
@@ -234,8 +234,8 @@ public class Runner {
                     System.out.println("The dealer pays you $" + Double.toString(roundBet) + "0.");
                     if(debt>0){
                         if(debt-roundBet<0){
-                            debt = 0;
                             bettingMoney+=roundBet-debt;
+                            debt = 0;
                         }else{
                             debt-=roundBet;
                         }
